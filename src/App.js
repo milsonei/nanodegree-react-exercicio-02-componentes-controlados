@@ -3,37 +3,38 @@ import logo from './logo.svg';
 import './App.css';
 import ShoppingListForm from './ShoppingListForm'
 import DeleteLastItemButton from './DeleteLastItemButton'
-import ShoppingList from './ShoppingList'
+import ShoppingItemList from './ShoppingItemList'
 
 class App extends React.Component {
   state = {
-    value: '',
     items: [],
   };
-
-  handleChange = event => {
-    this.setState({ value: event.target.value });
-  };
-
-  addItem = event => {
-    event.preventDefault();
+  /**
+   * Adiciona um novo item para a lista de compras armazenada em items do objeto state
+   */
+  handleAddItem = item => { 
     this.setState(oldState => ({
-      items: [...oldState.items, this.state.value],
+      items: [...oldState.items, item],
     }));
   };
 
-  deleteLastItem = event => {
+  /**
+   * Remove o último item da lista de compras
+   */
+  handleDeleteLastItem = event => {
     this.setState(prevState => ({ items: this.state.items.slice(0, -1) }));
   };
 
-  inputIsEmpty = () => {
-    return this.state.value === '';
-  };
-
+  /**
+   * Verifica se a lista de compras está vazia
+   */
   noItemsFound = () => {
     return this.state.items.length === 0;
   };
 
+  /**
+   * Renderiza o componente
+   */
   render() {
     return (
       <div className="App">
@@ -42,12 +43,9 @@ class App extends React.Component {
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
         <h2>Shopping List</h2>
-        <ShoppingListForm  inputValue={this.state.value} 
-                           handleInputChange={this.handleChange} 
-                           addItemOnSubmitCallback={this.addItem}
-                           disableButtonCallback={this.inputIsEmpty}/>
-        <DeleteLastItemButton deleteLastItemCallback={this.deleteLastItem} disableButtonCallback={this.noItemsFound}/>
-        <ShoppingList items={this.state.items}/>              
+        <ShoppingListForm onAddItem={this.handleAddItem}/>
+        <DeleteLastItemButton onDeleteLastItem={this.handleDeleteLastItem} buttonDisabled={this.noItemsFound()}/>
+        <ShoppingItemList items={this.state.items}/>              
       </div>
     );
   }
