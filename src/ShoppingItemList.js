@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ShoppingItem from './ShoppingItem'
 /**
- * Componente stateless responsável pela geração da lista de compras
+ * Componente funcional stateless responsável pela geração da lista de compras
  * @param {object} props objeto contendo as propriedades repassadas pelo componente pai
  */
 function ShoppingItemList(props){
@@ -17,7 +17,7 @@ function ShoppingItemList(props){
 }
 
 /**
- * Tipos obrigatórios que devem ser repassados pelo componente pai
+ * Validação dos tipos obrigatórios que devem ser repassados pelo componente pai
  */
 ShoppingItemList.propTypes = {
   items: PropTypes.array.isRequired
